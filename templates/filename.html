@@ -1,0 +1,42 @@
+<html>
+  <head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <tr><td>
+      <form id="uploadImg">
+        <input type="file" name="image" accept="image/*" />
+        <input type="text" name="transforms" />
+        <input type="submit" />
+      </form>
+     <div id='response'></div>
+    </td></tr>
+  </body>
+  <script>
+   $(document).ready(function() {
+    $("#uploadImg").submit(function(evt){   
+
+      evt.preventDefault();
+      var formData = new FormData($(this)[0]);
+
+      $.ajax({
+          url: 'fileUpload',
+          type: 'POST',
+          data: formData,
+          async: false,
+          cache: false,
+          contentType: false,
+          enctype: 'multipart/form-data',
+          processData: false,
+          success: function (response) {
+        
+            alert(response);
+          }
+      });
+
+      return false;
+
+      });
+   });
+  </script>
+</html>
