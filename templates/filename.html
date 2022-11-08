@@ -3,22 +3,48 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
-    <tr><td>
+    
+  
       <form id="uploadImg">
-        <input type="file" name="image" accept="image/*" />
+        <input type="file" name="image" id="imgFile" accept="image/*" />
+        <input type="submit" />
+      </form>
+      <form id="addTransforms">
         <input type="text" name="transforms" />
         <input type="submit" />
       </form>
      <div id='response'></div>
-    </td></tr>
+  
   </body>
   <script>
    $(document).ready(function() {
-    $("#uploadImg").submit(function(evt){   
+    // $("#imgFile").change((e)=>{
+    //   var formData = new FormData($("#uploadImg")[0]);
+      
+    //   console.log("123",.files[0])
+    // })
+    mainID= ""
+    $("#addTransforms").submit((e)=>{
+      e.preventDefault();
+      var formData = new FormData(document.getElementById("addTransforms"));
+      formData.append("imageID",imageID)
+      $.ajax({
+            type: 'POST',
+            url: '/applyTransformations',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                console.log('Success!');
+            },      
+     })
+    });
+    $("#uploadImg").submit((evt)=>{   
 
       evt.preventDefault();
-      var formData = new FormData($(this)[0]);
-
+      var formData = new FormData(document.getElementById("uploadImg"));
+        // $("#uploadImg"));
       $.ajax({
           url: 'fileUpload',
           type: 'POST',
@@ -30,7 +56,10 @@
           processData: false,
           success: function (response) {
         
-            alert(response);
+            alert(response.path);
+            mainID = response.mainID
+            // imagePath = response;
+            console.log(response)
           }
       });
 

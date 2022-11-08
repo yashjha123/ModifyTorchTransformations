@@ -1,5 +1,5 @@
 ## Todo
- - [ ] Simple form app
+ - [x] Simple form app
  - [ ] Broilerplate Code
  - [ ] Autofill and suggestions to the input text
  - [ ] UI Updates:- Image tags when image is shown (Tensor, PIL Image, Numpy Array) (Scaled, Normalised)
